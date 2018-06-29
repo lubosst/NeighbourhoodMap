@@ -14,3 +14,5 @@ Using google maps I show some interesting places in our Capitol City - Bratislav
 
 ## Running app
 Just clone or download repositary and open the index.html. (You must be connected to internet to run this app)
+
+You can run page online at: https://lubosst.github.io/NeighbourhoodMap/
