@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="Neighborhood Map Project" content="Interesting places in Bratislava">
+    <meta name="Lubomir Janovicky">
+
+    <title>Neighborhood Map Project for Udacity</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+        rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+        integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+        crossorigin="anonymous">
+
+    <!-- Custom CSS -->
+    <link
+        rel="stylesheet"
+        href="css/myStyle.css">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Main page -->
+            <main class="col p-0 navbar-inverse">
+                <a href class="float-right m-3 navbar-light" data-target="#sidebar" data-toggle="collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </a>
+                <div class="content bg-inverse">
+                    <!-- Map Content -->
+                    <div id="map">
+                        <!-- Map -->
+                        <p class="map_error"></p>
+                    </div>
+                </div>
+            </main>
+            <!-- Hidden sidebar -->
+            <nav class="col-2 collapse bg-inverse pt-2 sidebar_width" id="sidebar">
+                <h4 class="app_title text-white">Neighborhood Map</h4>
+                <!-- Search Input -->
+                <input class="search" data-bind="textInput: searchOption, valueUpdate: 'afterkeydown'" placeholder="Search Locations...">
+                <hr class="sidebar_hr">
+                <ul class="nav flex-column" data-bind="foreach: locationsFilter">
+                    <a href="#"><li class="nav-item text-white location_list" data-bind="text: title, click: $parent.bounceMarker"></li></a>
+                </ul>
+                <img class="foursquare" src="img/foursquare_attr.png" srcset="img/foursquare_attr@2x.png" alt="Powered By Foursquare!">
+            </nav>
+        </div>
+    </div>
+
+    <!-- Knockout js -->
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js"
+        charset="utf-8"></script>
+
+    <!-- jQuery js -->
+    <script
+		src="https://code.jquery.com/jquery-3.3.1.min.js"
+		integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+
+    <!-- Bootstrap js -->
+    <script
+        src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
+        integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+        crossorigin="anonymous"></script>
+
+    <!-- Custom Scripts -->
+    <script src="js/markers.js" charset="utf-8"></script>
+    <script src="js/app.js" charset="utf-8"></script>
+
+    <!-- dynamicli setting height of the components -->
+    <script>
+		$(document).ready(function() {
+			function setHeight() {
+				windowHeight = $(window).innerHeight();
+				$('#map').css('min-height', windowHeight);
+				$('#sidebar').css('min-height', windowHeight);
+			};
+			setHeight();
+			$(window).resize(function() {
+				setHeight();
+			});
+		});
+	</script>
+
+    <script async defer
+		src="https://maps.googleapis.com/maps/api/js?libraries=places,drawing,geometry&key=AIzaSyBMPQDJ1qB_hbu3Ae32dtfdfo3S3rZPQ3E&callback=doTheMagic"
+        onerror="googleMapsError()"></script>
+</body>
+</html>
