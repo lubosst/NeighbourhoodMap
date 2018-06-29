@@ -43,16 +43,18 @@ function AppViewModel() {
 
         //response JSON is simple, I find all info which I wat to show in popUpMessage
         $.getJSON(url).done(function(marker) {
+            var htmlFoursquareContent = "Failed to load data";
             var response = marker.response.venues[0];
-            self.street = response.location.formattedAddress[0];
-            self.city = response.location.city;
-            self.zip = response.location.postalCode;
-            self.country = response.location.formattedAddress[2];
-            self.category = response.categories[0].shortName;
-            self.lat = response.location.lat;
-            self.lng = response.location.lng;
+            if (response) {
+                self.street = response.location.formattedAddress[0];
+                self.city = response.location.city;
+                self.zip = response.location.postalCode;
+                self.country = response.location.formattedAddress[2];
+                self.category = response.categories[0].shortName;
+                self.lat = response.location.lat;
+                self.lng = response.location.lng;
 
-            var htmlFoursquareContent =
+                htmlFoursquareContent =
                 '<h5 class="pum_subtitle">(' + self.category +
                 ')</h5>' + '<div>' +
                 '<h6 class="pum_address_title"> Address: </h6>' +
@@ -62,7 +64,7 @@ function AppViewModel() {
                 '<p class="pum_address">' + self.country + '</p>' +
                 '<p class="pum_address">' + self.lat + ', ' + self.lng +
                 '</p>' + '</div>' + '</div>';
-
+            }
             popUpMessage.setContent(self.htmlContent + htmlFoursquareContent);
         }).fail(function() {
             // Send alert
@@ -82,42 +84,7 @@ function AppViewModel() {
         }).bind(this), 1500);
     };
 
-
-    //initialize map and center map to given coordinates
-    this.initMap = function() {
-        var mapCanvas = document.getElementById('map');
-        var mapOptions = {
-            center: new google.maps.LatLng(centerLang, centerLong),
-            zoom: 12,
-        };
-        map = new google.maps.Map(mapCanvas, mapOptions);
-
-        // Set InfoWindow
-        this.viewWindow = new google.maps.InfoWindow();
-        for (var i = 0; i < locations.length; i++) {
-            this.markerTitle = locations[i].title;
-            this.markerLat = locations[i].lat;
-            this.markerLng = locations[i].lng;
-            // Google Maps marker setup
-            this.marker = new google.maps.Marker({
-                map: map,
-                position: {
-                    lat: this.markerLat,
-                    lng: this.markerLng
-                },
-                title: this.markerTitle,
-                lat: this.markerLat,
-                lng: this.markerLng,
-                id: i,
-                animation: google.maps.Animation.DROP
-            });
-            this.marker.setMap(map);
-            this.markers.push(this.marker);
-            this.marker.addListener('click', self.bounceMarker);
-        }
-    };
-
-    this.initMap();
+    initMap(self);
 
     // appending my locations to a list using data-bind
     // It also serves to make the filter work
@@ -137,7 +104,7 @@ function AppViewModel() {
     }, this);
 }
 
-googleError = function googleError() {
+var googleError = function googleError() {
     alert(
         'Oops, something went horribly wrong and google maps did not load. World is in chaos, so stay calm and try to refresh the page. ;)'
     );
@@ -146,3 +113,37 @@ googleError = function googleError() {
 function doTheMagic() {
     ko.applyBindings(new AppViewModel());
 }
+
+//initialize map and center map to given coordinates
+var initMap = function(self) {
+    var mapCanvas = document.getElementById('map');
+    var mapOptions = {
+        center: new google.maps.LatLng(centerLang, centerLong),
+        zoom: 12,
+    };
+    map = new google.maps.Map(mapCanvas, mapOptions);
+
+    // Set InfoWindow
+    self.viewWindow = new google.maps.InfoWindow();
+    for (var i = 0; i < locations.length; i++) {
+        self.markerTitle = locations[i].title;
+        self.markerLat = locations[i].lat;
+        self.markerLng = locations[i].lng;
+        // Google Maps marker setup
+        self.marker = new google.maps.Marker({
+            map: map,
+            position: {
+                lat: self.markerLat,
+                lng: self.markerLng
+            },
+            title: self.markerTitle,
+            lat: self.markerLat,
+            lng: self.markerLng,
+            id: i,
+            animation: google.maps.Animation.DROP
+        });
+        self.marker.setMap(map);
+        self.markers.push(self.marker);
+        self.marker.addListener('click', self.bounceMarker);
+    }
+};
