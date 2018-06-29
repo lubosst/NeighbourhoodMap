@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <meta name="Neighborhood Map Project" content="Interesting places in Bratislava">
-    <meta name="Lubomir Janovicky">
+    <meta name="author" content="Lubomir Janovicky">
 
     <title>Neighborhood Map Project for Udacity</title>
 
@@ -29,7 +29,7 @@
         <div class="row">
             <!-- Main page -->
             <main class="col p-0 navbar-inverse">
-                <a href class="float-right m-3 navbar-light" data-target="#sidebar" data-toggle="collapse">
+                <a href="#" class="float-right m-3 navbar-light" data-target="#sidebar" data-toggle="collapse">
                     <span class="navbar-toggler-icon"></span>
                 </a>
                 <div class="content bg-inverse">
@@ -44,10 +44,10 @@
             <nav class="col-2 collapse bg-inverse pt-2 sidebar_width" id="sidebar">
                 <h4 class="app_title text-white">Neighborhood Map</h4>
                 <!-- Search Input -->
-                <input class="search" data-bind="textInput: searchOption, valueUpdate: 'afterkeydown'" placeholder="Search Locations...">
+                <input class="search" data-bind="textInput: searchOption" placeholder="Search Locations...">
                 <hr class="sidebar_hr">
                 <ul class="nav flex-column" data-bind="foreach: locationsFilter">
-                    <a href="#"><li class="nav-item text-white location_list" data-bind="text: title, click: $parent.bounceMarker"></li></a>
+                    <li class="nav-item"><a href="#" class="text-white location_list" data-bind="text: title, click: $parent.bounceMarker"></a></li>
                 </ul>
                 <img class="foursquare" src="img/foursquare_attr.png" srcset="img/foursquare_attr@2x.png" alt="Powered By Foursquare!">
             </nav>
@@ -56,8 +56,7 @@
 
     <!-- Knockout js -->
     <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js"
-        charset="utf-8"></script>
+        src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js"></script>
 
     <!-- jQuery js -->
     <script
@@ -77,8 +76,8 @@
         crossorigin="anonymous"></script>
 
     <!-- Custom Scripts -->
-    <script src="js/markers.js" charset="utf-8"></script>
-    <script src="js/app.js" charset="utf-8"></script>
+    <script src="js/markers.js"></script>
+    <script src="js/app.js"></script>
 
     <!-- dynamicli setting height of the components -->
     <script>
