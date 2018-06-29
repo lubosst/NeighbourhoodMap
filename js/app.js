@@ -1,3 +1,4 @@
+'use strict';
 // Global Variables
 var map;
 //clientID, clientSecret, foursquareVersion - variables with info for foursquare
@@ -134,7 +135,7 @@ function AppViewModel() {
         }
         return result;
     }, this);
-};
+}
 
 googleError = function googleError() {
     alert(
@@ -144,4 +145,4 @@ googleError = function googleError() {
 
 function doTheMagic() {
     ko.applyBindings(new AppViewModel());
-};
+}
